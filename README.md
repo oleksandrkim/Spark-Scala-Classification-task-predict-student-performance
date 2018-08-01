@@ -152,3 +152,11 @@ val pipeline = new Pipeline().setStages(Array(schoolIndexer,sexIndexer,addressIn
 
 val paramGrid = new ParamGridBuilder().addGrid(dt.maxDepth, Array(5, 10, 15, 20, 30)).addGrid(dt.maxBins, Array(10, 20, 30, 50)).build()
 ```
+
+**Cross-validation (3 splits); Predict test data**
+
+```
+val cv = new CrossValidator().setEstimator(pipeline).setEvaluator(new BinaryClassificationEvaluator).setEstimatorParamMaps(paramGrid).setNumFolds(3)
+val cvModel = cv.fit(training)
+val predictions = cvModel.transform(test)
+```
