@@ -177,9 +177,33 @@ println("Confusion matrix:")
 println(metrics.confusionMatrix)
 ```
 
->Confusion matrix:
+>Confusion matrix: <br />
 >14.0  11.0 <br />
 >12.0  134.0 <br />
 
 ### Predictions of decision tree model
 
+>+-----+----------+<br />
+>|label|prediction|<br />
+>+-----+----------+<br />
+>|    1|       1.0|<br />
+>|    0|       0.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    0|       1.0|<br />
+>|    1|       0.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       0.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>|    1|       1.0|<br />
+>+-----+----------+<br />
