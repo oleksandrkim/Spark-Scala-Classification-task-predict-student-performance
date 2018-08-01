@@ -160,3 +160,26 @@ val cv = new CrossValidator().setEstimator(pipeline).setEvaluator(new BinaryClas
 val cvModel = cv.fit(training)
 val predictions = cvModel.transform(test)
 ```
+
+**Evaluate a model**
+
+```
+import org.apache.spark.mllib.evaluation.MulticlassMetrics
+
+// Convert the test results to an RDD using .as and .rdd
+val predictionAndLabels = predictions.select($"prediction",$"label").as[(Double, Double)].rdd
+
+// Instantiate a new MulticlassMetrics object
+val metrics = new MulticlassMetrics(predictionAndLabels)
+
+// Print out the Confusion matrix
+println("Confusion matrix:")
+println(metrics.confusionMatrix)
+```
+
+>Confusion matrix:
+>14.0  11.0 <br />
+>12.0  134.0 <br />
+
+### Predictions of decision tree model
+
