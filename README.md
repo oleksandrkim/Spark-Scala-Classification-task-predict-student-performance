@@ -118,3 +118,37 @@ val assembler = (new VectorAssembler()
                   "higherEnc", "internetEnc", "romanticEnc", "famrelEnc", "freetimeEnc", "gooutEnc", "DalcEnc", "WalcEnc", "healthEnc", "age", "absences"))
                   .setOutputCol("features_assem") )
 ```
+
+**Scalling of features with MinMaxScaler**
+
+```
+import org.apache.spark.ml.feature.MinMaxScaler
+val scaler = new MinMaxScaler().setInputCol("features_assem").setOutputCol("features")
+```
+
+**Train/Test split**
+
+```
+val Array(training, test) = df_label.randomSplit(Array(0.75, 0.25))
+```
+
+## Decision Tree
+
+**Building a decision tree, contructing a pipeline and creating a ParamGrid**
+
+Parameters: Max depth(5, 10, 15, 20, 30) and Max Bins(10, 20, 30, 50)
+
+```
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.classification.DecisionTreeClassificationModel
+import org.apache.spark.ml.classification.DecisionTreeClassifier
+import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
+import org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}
+
+val dt = new DecisionTreeClassifier().setLabelCol("label").setFeaturesCol("features")//.setImpurity("variance")
+
+val pipeline = new Pipeline().setStages(Array(schoolIndexer,sexIndexer,addressIndexer,famsizeIndexer,PstatusIndexer,MjobIndexer,FjobIndexer,reasonIndexer,
+  guardianIndexer,schoolsupIndexer,famsupIndexer,paidIndexer,activitiesIndexer,nurseryIndexer,higherIndexer,internetIndexer,romanticIndexer,encoder, assembler,scaler, dt))
+
+val paramGrid = new ParamGridBuilder().addGrid(dt.maxDepth, Array(5, 10, 15, 20, 30)).addGrid(dt.maxBins, Array(10, 20, 30, 50)).build()
+```
