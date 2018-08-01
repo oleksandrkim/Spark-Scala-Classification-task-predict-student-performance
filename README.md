@@ -27,3 +27,38 @@ data.printSchema()
 ```
 
 
+> |-- sex: string (nullable = true) <br />
+> |-- age: integer (nullable = true) <br />
+> |-- address: string (nullable = true) <br />
+> |-- famsize: string (nullable = true) <br />
+> |-- Pstatus: string (nullable = true) <br />
+> |-- Medu: integer (nullable = true) <br />
+> |-- Fedu: integer (nullable = true) <br />
+> |-- Mjob: string (nullable = true) <br />
+> |-- Fjob: string (nullable = true) <br />
+> |-- reason: string (nullable = true) <br />
+> |-- guardian: string (nullable = true) <br />
+> |-- traveltime: integer (nullable = true) <br />
+> |-- studytime: integer (nullable = true) <br />
+> |-- failures: integer (nullable = true) <br />
+> |-- schoolsup: string (nullable = true) <br />
+> |-- famsup: string (nullable = true) <br />
+> |-- paid: string (nullable = true) <br />
+> |-- activities: string (nullable = true) <br />
+> |-- nursery: string (nullable = true) <br />
+> |-- higher: string (nullable = true) <br />
+> |-- internet: string (nullable = true) <br />
+> |-- romantic: string (nullable = true) <br />
+> |-- famrel: integer (nullable = true) <br />
+> |-- freetime: integer (nullable = true) <br />
+> |-- goout: integer (nullable = true) <br />
+> |-- Dalc: integer (nullable = true) <br />
+> |-- Walc: integer (nullable = true) <br />
+> |-- health: integer (nullable = true) <br />
+> |-- absences: integer (nullable = true) <br />
+> |-- G1: integer (nullable = true) <br />
+> |-- G2: integer (nullable = true) <br />
+> |-- G3: integer (nullable = true) <br />
+
+
+
