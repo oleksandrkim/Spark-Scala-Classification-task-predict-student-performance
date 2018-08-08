@@ -170,7 +170,8 @@ val paramGrid = new ParamGridBuilder().addGrid(dt.maxDepth, Array(5, 10, 15, 20,
 **Cross-validation (3 splits); Predict test data**
 
 ```
-val cv = new CrossValidator().setEstimator(pipeline).setEvaluator(new BinaryClassificationEvaluator).setEstimatorParamMaps(paramGrid).setNumFolds(3)
+val cv = new CrossValidator().setEstimator(pipeline).setEvaluator(new BinaryClassificationEvaluator)
+  .setEstimatorParamMaps(paramGrid).setNumFolds(3)
 val cvModel = cv.fit(training)
 val predictions = cvModel.transform(test)
 ```
