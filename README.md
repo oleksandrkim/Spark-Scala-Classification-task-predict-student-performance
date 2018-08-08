@@ -1,4 +1,4 @@
-# Spark-Scala-Classification-task-predict-student-performance
+# Spark/Scala Classification task predict student performance
 Predict if student passes a course or not on a basis of his or her personal life, activities in school and outside
 
 **Information about the dataset**
@@ -65,9 +65,11 @@ data.printSchema()
 ```
 val df_pass = data.withColumn("pass", when($"G3" >= 10 , 1).otherwise(0)).drop("G1").drop("G2").drop("G3")
 
-val df_label = df_pass.select($"school", $"sex", $"age", $"address", $"famsize", $"Pstatus", $"Medu", $"Fedu", $"Mjob", $"Fjob",
-  $"reason", $"guardian", $"traveltime", $"studytime", $"failures", $"schoolsup", $"famsup", $"paid", $"activities", $"nursery",
-  $"higher", $"internet", $"romantic", $"famrel", $"freetime", $"goout", $"Dalc", $"Walc", $"health", $"absences", df_pass("pass").as("label"))
+val df_label = df_pass.select($"school", $"sex", $"age", $"address", $"famsize", $"Pstatus", $"Medu", 
+  $"Fedu", $"Mjob", $"Fjob", $"reason", $"guardian", $"traveltime", $"studytime", $"failures",
+  $"schoolsup", $"famsup", $"paid", $"activities", $"nursery",$"higher", $"internet", $"romantic",
+   $"famrel", $"freetime", $"goout", $"Dalc", $"Walc", $"health", $"absences", 
+   df_pass("pass").as("label"))
 ```
  
 **Encode categorical variables: convert strings to integers and encode with OneHotEncoderEstimator**
@@ -99,12 +101,16 @@ val romanticIndexer = new StringIndexer().setInputCol("romantic").setOutputCol("
 
 import org.apache.spark.ml.feature.OneHotEncoderEstimator
 
-val encoder = new OneHotEncoderEstimator().setInputCols(Array("schoolIndex", "sexIndex", "addressIndex", "famsizeIndex", "PstatusIndex", "Medu", "Fedu", "MjobIndex", "FjobIndex",
-  "reasonIndex", "guardianIndex", "traveltime", "studytime", "failures", "schoolsupIndex", "famsupIndex", "paidIndex", "activitiesIndex", "nurseryIndex",
+val encoder = new OneHotEncoderEstimator().setInputCols(Array("schoolIndex", "sexIndex", 
+"addressIndex", "famsizeIndex", "PstatusIndex", "Medu", "Fedu", "MjobIndex", "FjobIndex",
+  "reasonIndex", "guardianIndex", "traveltime", "studytime", "failures", "schoolsupIndex", 
+  "famsupIndex", "paidIndex", "activitiesIndex", "nurseryIndex",
   "higherIndex", "internetIndex", "romanticIndex", "famrel", "freetime", "goout", "Dalc", "Walc", "health")).setOutputCols(Array("schoolEnc",
   "sexEnc", "addressEnc", "famsizeEnc", "PstatusEnc", "MeduEnc", "FeduEnc", "MjobEnc", "FjobEnc",
-  "reasonEnc", "guardianEnc", "traveltimeEnc", "studytimeEnc", "failuresEnc", "schoolsupEnc", "famsupEnc", "paidIndexEnc", "activitiesEnc", "nurseryEnc",
-  "higherEnc", "internetEnc", "romanticEnc", "famrelEnc", "freetimeEnc", "gooutEnc", "DalcEnc", "WalcEnc", "healthEnc"))
+  "reasonEnc", "guardianEnc", "traveltimeEnc", "studytimeEnc", "failuresEnc", "schoolsupEnc", 
+  "famsupEnc", "paidIndexEnc", "activitiesEnc", "nurseryEnc",
+  "higherEnc", "internetEnc", "romanticEnc", "famrelEnc", "freetimeEnc", "gooutEnc", "DalcEnc", 
+  "WalcEnc", "healthEnc"))
 
 ```
 
@@ -113,9 +119,12 @@ val encoder = new OneHotEncoderEstimator().setInputCols(Array("schoolIndex", "se
 
 ```
 val assembler = (new VectorAssembler()
-                  .setInputCols(Array("schoolEnc", "sexEnc", "addressEnc", "famsizeEnc", "PstatusEnc", "MeduEnc", "FeduEnc", "MjobEnc", "FjobEnc",
-                  "reasonEnc", "guardianEnc", "traveltimeEnc", "studytimeEnc", "failuresEnc", "schoolsupEnc", "famsupEnc", "paidIndexEnc", "activitiesEnc", "nurseryEnc",
-                  "higherEnc", "internetEnc", "romanticEnc", "famrelEnc", "freetimeEnc", "gooutEnc", "DalcEnc", "WalcEnc", "healthEnc", "age", "absences"))
+                  .setInputCols(Array("schoolEnc", "sexEnc", "addressEnc", "famsizeEnc", 
+                  "PstatusEnc", "MeduEnc", "FeduEnc", "MjobEnc", "FjobEnc",
+                  "reasonEnc", "guardianEnc", "traveltimeEnc", "studytimeEnc", "failuresEnc", 
+                  "schoolsupEnc", "famsupEnc", "paidIndexEnc", "activitiesEnc", "nurseryEnc",
+                  "higherEnc", "internetEnc", "romanticEnc", "famrelEnc", "freetimeEnc", "gooutEnc", 
+                  "DalcEnc", "WalcEnc", "healthEnc", "age", "absences"))
                   .setOutputCol("features_assem") )
 ```
 
@@ -145,12 +154,15 @@ import org.apache.spark.ml.classification.DecisionTreeClassifier
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
 import org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}
 
-val dt = new DecisionTreeClassifier().setLabelCol("label").setFeaturesCol("features")//.setImpurity("variance")
+val dt = new DecisionTreeClassifier().setLabelCol("label").setFeaturesCol("features")
 
-val pipeline = new Pipeline().setStages(Array(schoolIndexer,sexIndexer,addressIndexer,famsizeIndexer,PstatusIndexer,MjobIndexer,FjobIndexer,reasonIndexer,
-  guardianIndexer,schoolsupIndexer,famsupIndexer,paidIndexer,activitiesIndexer,nurseryIndexer,higherIndexer,internetIndexer,romanticIndexer,encoder, assembler,scaler, dt))
+val pipeline = new Pipeline().setStages(Array(schoolIndexer,sexIndexer,addressIndexer,famsizeIndexer,
+  PstatusIndexer,MjobIndexer,FjobIndexer,reasonIndexer,
+  guardianIndexer,schoolsupIndexer,famsupIndexer,paidIndexer,activitiesIndexer,nurseryIndexer,
+  higherIndexer,internetIndexer,romanticIndexer,encoder, assembler,scaler, dt))
 
-val paramGrid = new ParamGridBuilder().addGrid(dt.maxDepth, Array(5, 10, 15, 20, 30)).addGrid(dt.maxBins, Array(10, 20, 30, 50)).build()
+val paramGrid = new ParamGridBuilder().addGrid(dt.maxDepth, Array(5, 10, 15, 20, 30)).addGrid(dt.maxBins, 
+  Array(10, 20, 30, 50)).build()
 ```
 
 **Cross-validation (3 splits); Predict test data**
