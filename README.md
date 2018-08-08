@@ -105,8 +105,10 @@ val encoder = new OneHotEncoderEstimator().setInputCols(Array("schoolIndex", "se
 "addressIndex", "famsizeIndex", "PstatusIndex", "Medu", "Fedu", "MjobIndex", "FjobIndex",
   "reasonIndex", "guardianIndex", "traveltime", "studytime", "failures", "schoolsupIndex", 
   "famsupIndex", "paidIndex", "activitiesIndex", "nurseryIndex",
-  "higherIndex", "internetIndex", "romanticIndex", "famrel", "freetime", "goout", "Dalc", "Walc", "health")).setOutputCols(Array("schoolEnc",
-  "sexEnc", "addressEnc", "famsizeEnc", "PstatusEnc", "MeduEnc", "FeduEnc", "MjobEnc", "FjobEnc",
+  "higherIndex", "internetIndex", "romanticIndex", "famrel", "freetime", 
+  "goout", "Dalc", "Walc", "health"))
+  .setOutputCols(Array("schoolEnc", "sexEnc", "addressEnc", "famsizeEnc", "PstatusEnc", 
+  "MeduEnc", "FeduEnc", "MjobEnc", "FjobEnc",
   "reasonEnc", "guardianEnc", "traveltimeEnc", "studytimeEnc", "failuresEnc", "schoolsupEnc", 
   "famsupEnc", "paidIndexEnc", "activitiesEnc", "nurseryEnc",
   "higherEnc", "internetEnc", "romanticEnc", "famrelEnc", "freetimeEnc", "gooutEnc", "DalcEnc", 
